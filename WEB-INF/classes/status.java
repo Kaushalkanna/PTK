@@ -64,7 +64,7 @@ String[] data = { name, status, dates};
       {
           i.printStackTrace();
       }
- response.setContentType("text/html");
+/* response.setContentType("text/html");
     PrintWriter out = response.getWriter();
     String docType =
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 " +
@@ -89,7 +89,8 @@ String[] data = { name, status, dates};
            "       VALUE=\"Back to HOME\">\n" +
            "</CENTER></BIG></FORM>");
 
-	out.println("</BODY></HTML>");
+	out.println("</BODY></HTML>"); */
+	response.sendRedirect("home.jsp");
 
 
   } 
