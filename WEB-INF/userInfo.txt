@@ -1,20 +1,9 @@
-
-
 Nt,Nt,rr,y,t@t.com,TheAccount is for Testing,707999666,120 E main Street,Chicago,IL
-
-
-
-talrefai0,t123,Thamer,Alrefai,talrefai0@gmail.com,TheAccount is for Testing01,33000099999,120 E main Street
-
-
-
+talrefai0,t123,Thamer,Alrefai,talrefai0@gmail.com,TheAccount is for Testing01,33999,120 E main Street
 Tt,t123,Thamer,y,t@t.com,TheAccount is for Testing,33333,120 E main Street
-
-
-
-
-
 priya,priya,Priya,Patel,ppatel81@hawk.iit.edu,hewdjkawd,123456789,chicago IL 60616
-
 kaushal,aa,kaushal,dontula,koushalkanna@yahoo.com,nothing,1231231232,Chicago
+mittu,mittu,Mittu,N,m@gmail.com,jasgdfuigf,7654321989,3001 S King Drive
+John,Smith,John,Smith,john@gmail.com,New in PTK,7282345674,chicago IL 60616
+sne,s,Sneh,Smith,m@gmail.com,New in PTK,3212343212,chicago IL 60616
 

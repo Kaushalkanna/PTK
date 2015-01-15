@@ -3,6 +3,9 @@
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import Categories.ErrorHandling;
+
 import java.util.*;
 import java.text.*;
 import java.util.Date;
@@ -62,34 +65,10 @@ String[] data = { name, status, dates};
        
       }catch(IOException i)
       {
+    	  ErrorHandling.printMessage("Sorry your operation canot be completed, Please try again",response);
           i.printStackTrace();
       }
-/* response.setContentType("text/html");
-    PrintWriter out = response.getWriter();
-    String docType =
-      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 " +
-      "Transitional//EN\">\n";
-    String title = "Status Update";
-    out.println(docType +
-                "<HTML>\n" +
-                "<HEAD><TITLE>" + title + "</TITLE></HEAD>\n" +
-                "<BODY>\n" +
-		        "<H3 >Status posted successfully.</H3>\n" +
-	"<h4> User Name : " + request.getParameter("name") + "<h4>" +
-	"<h4> Status : " + request.getParameter("status") + "<h4>" );
 
-     String homeURL =
-          response.encodeURL("status.jsp");
-        
-        out.println
-          ("</TABLE>\n" +
-           "<FORM ACTION=\"" + homeURL + "\">\n" +
-           "<BIG><CENTER>\n" +
-           "<INPUT TYPE=\"SUBMIT\"\n" +
-           "       VALUE=\"Back to HOME\">\n" +
-           "</CENTER></BIG></FORM>");
-
-	out.println("</BODY></HTML>"); */
 	response.sendRedirect("home.jsp");
 
 

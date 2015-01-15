@@ -11,6 +11,13 @@ public class Item implements Serializable{
 	public void setType(String type) {
 		this.type = type;
 	}
+	public String userName;
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public String name;
 	public String desc;
 	public double price;

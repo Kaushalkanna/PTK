@@ -29,9 +29,11 @@ public class AddProduct extends  HttpServlet {
 			String mail = (String) request.getParameter("mail");
 			String img = (String) request.getParameter("img");
 			double price = Double.parseDouble( request.getParameter("price"));
-			
+			 String userName =  (String) request.getParameter("userName");
+				
 			Item i = new Item();
 			i.setDesc(desc);i.setImgLink(img);i.setMailId(mail);i.setName(item);i.setPhoneNo(phoneNo);i.setPrice(price);i.setType(type);
+			i.setUserName(userName);
 			
 			category.addItem(i);
 			
@@ -49,6 +51,7 @@ public class AddProduct extends  HttpServlet {
 				   category.getItemList().addAll(c.getItemList());
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
+				ErrorHandling.printMessage("Sorry the product was not added, Please try again with a new image",response);
 				e.printStackTrace();
 			}
 			 }
@@ -71,10 +74,14 @@ public class AddProduct extends  HttpServlet {
 			          "<style>" + HomePage.GetCSSStyle() +
 			          "</style>"+"</HEAD>\n" +
 			          "<BODY>\n" +
-			          "<div id='header'><h1>BestDeal</h1></div>"+
-			          "<div id='nav'></div>"+
-			         "<div id='section'> Your Item is successfully added in "+type+" Category<br>"+
-			           "</div></body></html>");
+			          "<div id='header'><h1>PTK Social Media</h1></div>"+
+			          "<div id='nav'><br><center><h3><a href ='home.jsp'>Home</a><br><a href =''>Message</a><br><a href ='profile.jsp'>Profile</a><br><a href ='requests.jsp'>Friend Requests</a><br><hr>"+
+"<I>Categories</I> <br><table> <td><tr><a href ='General.jsp'>General Items</a></tr></td><br> <td><tr><a href ='Sale.jsp'>Sale</a></tr></td><br>"+
+"<td><tr><a href ='Accomodation.jsp'>Accomodation</a></tr></td></table><hr><a href ='./logout.jsp'>Logout</a><br></h3></center></div>"+
+			         "<div id='section'>" +
+			         "Your Item is successfully added in "+type+" Category<br>"+
+			         "<a href='home.jsp'>home </a>"+
+			           "</h3></center></div><div id ='footer'>PTK project</div></body></html>");
 	 }
 	 
 }

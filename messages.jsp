@@ -1,60 +1,23 @@
-<%@ page language="java"  import="java.io.*, java.util.*,
- java.text.*, javax.servlet.http.*" %>
+<%@ page language="java"  import="Categories.*, java.util.*,
+ java.text.*, javax.servlet.http.* ,java.io.*" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<head>
 <title>PTK</title>
+ <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <script type="text/javascript" src="javascript.js"></script>
+   
 </head>
 <style>
-#body{
- font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
- }
-#header {
-    background:#142f75;
-    color:white;
-    text-align:center;
-    padding:5px;
-    font-style: italic;
-}
-#nav {
-    line-height:30px;
-    background:#657dba;
-    height:80%;
-    width:20%;
-    float:left;
-}
-#section {
-    padding:10px;
-    BACKGROUND: white;	 	 
-}
-#right{
-	
-    background:#657dba;
-    height:80%;
-    width:20%;
-    float:right;
-    
-
-}   
-#footer {
-    background:#AE790C;
-    height:5%;
-    width:100%
-    color:white;
-    clear:both;
-    text-align:center;
-   padding:5px;	 	 
-}
 
 </style>
-<body>
+<body onload="init()">
 
 <!-- ============ HEADER SECTION ============== -->
 <div id="header">
 <h1>PTK Social Media</h1>
-
-
 <%
 			HttpSession session1 = request.getSession();
 			//String uss= session1.getAttribute("userID").toString();
@@ -62,20 +25,23 @@
 			
 				if(session1.getAttribute("userID") != null){
 				 %>
-				<div style="float:left">welcome, <%= session1.getAttribute("userID") %></div>
+				<div style="float:left">Welcome, <%= session1.getAttribute("userID") %></div>
 				<%
 					
 				}
 				else{
 				pageContext.forward("index.jsp");
 				}
-			}catch (IndexOutOfBoundsException e) {
+			}catch (Exception e) {
 				System.err.println("IndexOutOfBoundsException: " + e.getMessage());
-			} catch (IOException e) {
-				System.err.println("Caught IOException: " + e.getMessage());
-			}
+			} 
 %>
-Search Users : <input type="text" value = "Enter name" />
+<!-- Search Users :<input type="text"  size="40"  id="complete-field" onkeyup="doCompletion()" /></td>
+               <center> <table id="complete-table" class="popupBox"></table></center>
+ --> 
+ Feel freee to send messages to anyone in the pr
+  <a href ="./logout.jsp" style="color:white;float:right;">Logout</a>
+ 
 </div>
 
 <!-- ============ LEFT COLUMN (MENU) ============== -->
@@ -83,15 +49,16 @@ Search Users : <input type="text" value = "Enter name" />
 <a href ="home.jsp">Home</a><br>
 <a href ="messages.jsp">Message</a><br>
 <a href ="profile.jsp">Profile</a><br>
+<a href ="requests.jsp">Friend Requests</a><br>
 <hr>
 <I>Categories</I> <br>
 <table>
   <td><tr><a href ="General.jsp">General Items</a></tr></td><br>
   <td><tr><a href ="Sale.jsp">Sale</a></tr></td><br>
-  <td><tr><a href ="Accomodation.jsp">Accomodation</a></tr></td>
+  <td><tr><a href ="Accomodation.jsp">Accomodation</a></tr></td><br>
+  <td><tr><a href ="Form.jsp">Add item</a></tr></td>
 </table>
 <hr>
-<a href ="./logout.jsp">Logout</a><br>
 </h3></center>
 </div>
 
@@ -99,40 +66,89 @@ Search Users : <input type="text" value = "Enter name" />
 
  
 <!-- ============ SECTION COLUMN (CONTENT) ============== -->
-<center>
+
 <% 
 String name = session1.getAttribute("userID").toString();%>
 
-<form action="/PTK-master/ChatServlet" >
+<form action="ChatServlet" >
 
 <input type="hidden" name="fromname" value="<%= session1.getAttribute("userID") %>">
 <br />
 </br>
-TO : <input type="text" name="toname">
+<center>
+<div class= "modal">
+TO : <select name = "toname" >
+<%
+System.out.println(name);
+String friendsFilename = name +"friends.ser";
+HashMap<String , String> friends = null;
+File f = new File(friendsFilename);
+//if(f.isFile()) { 
+      try
+      {
+         FileInputStream fileIn = new FileInputStream(friendsFilename);
+         ObjectInputStream infil = new ObjectInputStream(fileIn);
+         friends = (HashMap<String , String>) infil.readObject();
+         infil.close();
+         fileIn.close();
+		
+      }catch(IOException i)
+      {
+    	  ErrorHandling.printMessage("Please Add Some Friends to Send them messages",response);
+         i.printStackTrace();
+         return;
+      }
+      System.out.println(friends.values().toString());
+      for (Map.Entry<String, String> entry : friends.entrySet())     {
+          String key = entry.getKey(); 
+    	    String friendname = entry.getValue();
+    	    System.out.println(friendname);
+    	    %>
+    	    <option value = <%=friendname %>><%=friendname %></option>
+    	    <%
+      }
+	/*}else
+	{  ErrorHandling.printMessage("Please Add Some Friends to Send them messages",response);
+    }*/
+%>
+</select>
+
 <br/>
 </br>
-Message : <textarea name="message" rows="4" cols="50"></textarea>
+Message : <textarea name="message" rows="3" cols="50"></textarea>
 </br>
 </br>
 <input type="submit" value="SEND" />
+
+</div>
+</center>
 </form>
-<h2> Your Messages </h2>
-</center>	
+
+	
 <%
 String filename= name + ".ser";
 %>
-
+<center>
+<h2> Your Messages </h2>
+<div style=" overflow : scroll; height: 190px; width: 75%; color:#3399FF;" >
 <%
 HashMap<String , String[]> e = null;
-File f = new File(filename);
-if(f.isFile()) { 
-      try
-      {
-         FileInputStream fileIn = new FileInputStream(filename);
-         ObjectInputStream infil = new ObjectInputStream(fileIn);
-         e = (HashMap<String , String[]>) infil.readObject();
-         infil.close();
-         fileIn.close();
+String filePath = new File(filename).getAbsolutePath();
+File FileToRead = new File(filePath);
+if(FileToRead.exists()){
+	 try
+     {
+System.out.println("Reading File");
+FileInputStream fis = new FileInputStream(FileToRead);
+System.out.println("Reading FileInputStream");
+ObjectInputStream  in = new ObjectInputStream(fis);
+
+
+     
+        
+         e = (HashMap<String , String[]>) in.readObject();
+         in.close();
+         fis.close();
 		
       }catch(IOException i)
       {
@@ -153,12 +169,12 @@ NavigableMap<String, String[]> nmap=tMap.descendingMap();
     String key = entry.getKey(); 
 	String[] value = entry.getValue();
 			%>
-			
-          <div style="background-image: url(/status/bg1.png); height: 80px; width: 800px; border: 4px color:#3399FF; color:#3399FF; margin:10px; padding:10px;" align="center">
-<%= value[1] %>
-</br>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-by "<%= value[0]%>" <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= value[2] %>
-</div>
+<br>			
+          
+<h3><%= value[1] %></h3>
+
+-by "<%= value[0]%>" <br><%= value[2] %>
+<br>
 
 <%
 
@@ -172,6 +188,7 @@ else
 <%
 	  }
 %>
+</div></center>
 <!-- ============ FOOTER SECTION ============== -->
 <div id = "footer">
 PTK project

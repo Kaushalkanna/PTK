@@ -3,6 +3,9 @@
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import Categories.ErrorHandling;
+
 import java.util.*;
 import java.text.*;
 import java.util.Date;
@@ -36,11 +39,12 @@ if(f.isFile()) {
 		
       }catch(IOException i)
       {
+    	  ErrorHandling.printMessage("Sorry your operation canot be compleated, Please try again",response);
          i.printStackTrace();
          return;
       }catch(ClassNotFoundException c)
       {
-       
+    	  ErrorHandling.printMessage("Sorry your operation canot be compleated, Please try again",response);
          c.printStackTrace();
          return;
       }
@@ -63,6 +67,7 @@ statushm = e;
        
       }catch(IOException i)
       {
+    	  ErrorHandling.printMessage("Sorry your operation canot be compleated, Please try again",response);
           i.printStackTrace();
       }
 	response.sendRedirect("messages.jsp?name=" + fromname);

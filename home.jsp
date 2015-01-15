@@ -5,64 +5,29 @@
 <html>
 <head>
 <title>PTK</title>
+ <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <script type="text/javascript" src="javascript.js"></script>
+   
 </head>
 <style>
-#body{
- font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
- }
-#header {
-    background:#142f75;
-    color:white;
-    text-align:center;
-    padding:5px;
-    font-style: italic;
-}
-#nav {
-    line-height:30px;
-    background:#657dba;
-    height:80%;
-    width:20%;
-    float:left;
-}
-#section {
-    padding:10px;
-    BACKGROUND: white;	 	 
-}
-#right{
-	
-    background:#657dba;
-    height:80%;
-    width:20%;
-    float:right;
-    
-
-}   
-#footer {
-    background:#AE790C;
-    height:5%;
-    width:100%
-    color:white;
-    clear:both;
-    text-align:center;
-   padding:5px;	 	 
-}
 
 </style>
-<body>
+<body onload="init()">
 
 <!-- ============ HEADER SECTION ============== -->
 <div id="header">
 <h1>PTK Social Media</h1>
 
+<form name="autofillform" action="autocomplete" >
 
-<%
+       <%
 			HttpSession session1 = request.getSession();
 			//String uss= session1.getAttribute("userID").toString();
 			try{
 			
 				if(session1.getAttribute("userID") != null){
 				 %>
-				<div style="float:left">welcome, <%= session1.getAttribute("userID") %></div>
+				<div style="float:left">Welcome, <%= session1.getAttribute("userID") %></div>
 				<%
 					
 				}
@@ -75,7 +40,10 @@
 				System.err.println("Caught IOException: " + e.getMessage());
 			}
 %>
-Search Users : <input type="text" value = "Enter name" />
+Search Users :<input type="text"  size="40"  id="complete-field" onkeyup="doCompletion()" /></td>
+               <center> <table id="complete-table" class="popupBox"></table></center>
+   <a href ="./logout.jsp" style="color:white;float:right;">Logout</a>         
+</form>
 </div>
 
 <!-- ============ LEFT COLUMN (MENU) ============== -->
@@ -83,15 +51,17 @@ Search Users : <input type="text" value = "Enter name" />
 <a href ="home.jsp">Home</a><br>
 <a href ="messages.jsp">Message</a><br>
 <a href ="profile.jsp">Profile</a><br>
+<a href ="requests.jsp">Friend Requests</a><br>
 <hr>
 <I>Categories</I> <br>
-<table>
+<table >
   <td><tr><a href ="General.jsp">General Items</a></tr></td><br>
   <td><tr><a href ="Sale.jsp">Sale</a></tr></td><br>
-  <td><tr><a href ="Accomodation.jsp">Accomodation</a></tr></td>
+  <td><tr><a href ="Accomodation.jsp">Accomodation</a></tr></td><br>
+  <td><tr><a href ="Form.jsp">Add item</a></tr></td>
 </table>
 <hr>
-<a href ="./logout.jsp">Logout</a><br>
+
 </h3></center>
 </div>
 
@@ -102,7 +72,7 @@ Search Users : <input type="text" value = "Enter name" />
 <div id="section"><br><br>
 <CENTER>
 <h2>
-<form action="/PTK-master/status" >
+<form action="./status" >
 <input type="hidden" name="name" value="<%= session1.getAttribute("userID") %>">
 <br />
 Status : <input type="text" name="status" />
@@ -146,10 +116,10 @@ NavigableMap<String, String[]> nmap=tMap.descendingMap();
 	String[] value = entry.getValue();
 			%>
 			
-          <div style="background-color:black; color:white; margin:10px; padding:10px;">
+          <div style="background-color:#E0ECF8; margin:7px; padding:7px;">
 <%= value[1] %>
 </br>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-by "<%= value[0]%>" <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= value[2] %>
+<br>-by "<%= value[0]%>" <br><%= value[2] %>
 </div>
 <%
 
@@ -163,6 +133,7 @@ else
 	  }
 %>
 </div>
+
 <!-- ============ FOOTER SECTION ============== -->
 <div id = "footer">
 PTK project

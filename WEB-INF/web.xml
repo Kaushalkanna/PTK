@@ -1,12 +1,27 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
 
-<!DOCTYPE web-app 
-PUBLIC "-//Sun Microsystems, 
-Inc.//DTD Web Application 2.3//EN"
-"http://java.sun.com/dtd/web-app_2_3.dtd">
+      http://www.apache.org/licenses/LICENSE-2.0
 
-<web-app>
-<servlet>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" metadata-complete="true" version="3.0">
+  <display-name>Welcome to Tomcat</display-name>
+  <description>
+     Welcome to Tomcat
+  </description>
+
+	<servlet>
     <servlet-name>AddProduct</servlet-name>
     <servlet-class>Categories.AddProduct</servlet-class>
    </servlet>
@@ -41,12 +56,7 @@ Inc.//DTD Web Application 2.3//EN"
         <servlet-name>status</servlet-name>
         <servlet-class>status</servlet-class>
     </servlet>
-
-    
-
-
-
-    <servlet-mapping>
+     <servlet-mapping>
         <servlet-name>ChatServlet</servlet-name>
         <url-pattern>/ChatServlet</url-pattern>
     </servlet-mapping>
@@ -55,7 +65,52 @@ Inc.//DTD Web Application 2.3//EN"
         <servlet-name>status</servlet-name>
         <url-pattern>/status</url-pattern>
     </servlet-mapping>
+<servlet>
+        <servlet-name>AutoCompleteServlet</servlet-name>
+        <servlet-class>Categories.AutoCompleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AutoCompleteServlet</servlet-name>
+        <url-pattern>/autocomplete</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+    <servlet>
+        <servlet-name>DeleteProduct</servlet-name>
+        <servlet-class>Categories.DeleteProduct</servlet-class>
+    </servlet>
+     <servlet-mapping>
+        <servlet-name>DeleteProduct</servlet-name>
+        <url-pattern>/DeleteProduct</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>FriendRequest</servlet-name>
+        <servlet-class>FriendRequest</servlet-class>
+    </servlet>
+     <servlet-mapping>
+        <servlet-name>FriendRequest</servlet-name>
+        <url-pattern>/FriendRequest</url-pattern>
+    </servlet-mapping>
 
-
+	<servlet>
+        <servlet-name>Friends</servlet-name>
+        <servlet-class>Friends</servlet-class>
+    </servlet>
+     <servlet-mapping>
+        <servlet-name>Friends</servlet-name>
+        <url-pattern>/friends</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>decline</servlet-name>
+        <servlet-class>Decline</servlet-class>
+    </servlet>
+     <servlet-mapping>
+        <servlet-name>decline</servlet-name>
+        <url-pattern>/decline</url-pattern>
+    </servlet-mapping>
 </web-app>
 

@@ -46,10 +46,10 @@ NavigableMap<String, String[]> nmap=tMap.descendingMap();
 	String[] value = entry.getValue();
 			%>
 			
-          <div style="background-color:black; color:white; margin:10px; padding:10px;">
+  <div style="background-color:#E0ECF8; margin:10px; padding:10px;">
 <%= value[1] %>
 </br>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-by "<%= value[0]%>" <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= value[2] %>
+<br>-by "<%= value[0]%>" <br><%= value[2] %>
 </div>
 <%
 
